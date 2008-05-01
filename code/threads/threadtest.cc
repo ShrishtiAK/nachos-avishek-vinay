@@ -11,6 +11,7 @@
 
 #include "copyright.h"
 #include "system.h"
+#include "synch.h"
 
 //----------------------------------------------------------------------
 // SimpleThread
@@ -48,4 +49,23 @@ ThreadTest()
     t->Fork(SimpleThread, 1);
     SimpleThread(0);
 }
+Lock SemaphoreLock("Lock test");
+int x=0;
+void LockUnlock(const int i)
+{
+	SemaphoreLock.Acquire();
+	x++;
+	printf("value of x = %d", x);
+	SemaphoreLock.Release();
+}
+void SynchTest()
+{
 
+	for(int i = 0 ; i < 20 ;++i)
+	{
+    	Thread *t = new Thread("forked thread");
+		t->Fork(LockUnlock, i);
+		//delete t;
+	}
+
+}

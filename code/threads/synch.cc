@@ -100,13 +100,96 @@ Semaphore::V()
 // Dummy functions -- so we can compile our later assignments 
 // Note -- without a correct implementation of Condition::Wait(), 
 // the test case in the network assignment won't work!
-Lock::Lock(char* debugName) {}
-Lock::~Lock() {}
-void Lock::Acquire() {}
-void Lock::Release() {}
+Lock::Lock(char* debugName) 
+{
+	m_pSemaphore = new Semaphore("Lock", 1)	;
+	m_pCurrentThread = NULL;
+}
+Lock::~Lock() 
+{
+	if(m_pSemaphore != NULL)	
+	{
+		delete m_pSemaphore;
+		m_pSemaphore = NULL;
+	}
+}
+void Lock::Acquire() 
+{
+	ASSERT(m_pSemaphore);
+	//ASSERT(isHeldByCurrentThread());
+	m_pSemaphore->P();
+	m_pCurrentThread = currentThread;
+}
+void Lock::Release() 
+{
+	ASSERT(m_pSemaphore);
+	m_pSemaphore->V();
+	m_pCurrentThread = NULL;
+}
 
-Condition::Condition(char* debugName) { }
+bool Lock::isHeldByCurrentThread()
+{
+	//ASSERT(m_pCurrentThread);
+	if(m_pCurrentThread != NULL &&
+	 m_pCurrentThread == currentThread)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+bool Lock::isSemaphoreTaken()
+{
+	return (m_pSemaphore->GetValue() == 0)? true : false;
+}
+
+bool Lock::isAnyThreadWaiting()
+{
+	return (isSemaphoreTaken())? true : false;
+}
+Condition::Condition(char* debugName) 
+{
+	name = debugName;	
+}
 Condition::~Condition() { }
-void Condition::Wait(Lock* conditionLock) { ASSERT(FALSE); }
-void Condition::Signal(Lock* conditionLock) { }
-void Condition::Broadcast(Lock* conditionLock) { }
+void Condition::Wait(Lock* pConditionLock) 
+{ 
+	IntStatus oldLevel = interrupt->SetLevel(IntOff);	// disable interrupts
+	pConditionLock->Release();
+	currentThread->Sleep();
+	pConditionLock->Acquire();
+	(void) interrupt->SetLevel(oldLevel);
+	
+}
+void Condition::Signal(Lock* pConditionLock) 
+{ 
+	IntStatus oldLevel = interrupt->SetLevel(IntOff);	// disable interrupts
+	ASSERT(pConditionLock);
+	if(pConditionLock->isHeldByCurrentThread())
+	{
+		ASSERT(FALSE);
+		(void) interrupt->SetLevel(oldLevel);
+		return;
+	}
+	pConditionLock->Release();
+	(void) interrupt->SetLevel(oldLevel);
+}
+void Condition::Broadcast(Lock* pConditionLock) 
+{
+	IntStatus oldLevel = interrupt->SetLevel(IntOff);	// disable interrupts
+	ASSERT(pConditionLock);
+	if(pConditionLock->isHeldByCurrentThread())
+	{
+		ASSERT(FALSE);
+		(void) interrupt->SetLevel(oldLevel);
+		return;
+	}
+	while(pConditionLock->isAnyThreadWaiting())
+	{
+		pConditionLock->Release();
+	}
+	(void) interrupt->SetLevel(oldLevel);
+}

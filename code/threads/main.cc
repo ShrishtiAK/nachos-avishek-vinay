@@ -52,7 +52,7 @@
 
 #include "utility.h"
 #include "system.h"
-
+#include "synch.h"
 
 // External functions used by this file
 
@@ -60,7 +60,7 @@ extern void ThreadTest(void), Copy(char *unixFile, char *nachosFile);
 extern void Print(char *file), PerformanceTest(void);
 extern void StartProcess(char *file), ConsoleTest(char *in, char *out);
 extern void MailTest(int networkID);
-
+extern void SynchTest();
 //----------------------------------------------------------------------
 // main
 // 	Bootstrap the operating system kernel.  
@@ -92,6 +92,9 @@ main(int argc, char **argv)
 	argCount = 1;
         if (!strcmp(*argv, "-z"))               // print copyright
             printf (copyright);
+		else if (!strcmp(*argv, "-synctest")) {	// Lock test
+            SynchTest();
+		}
 #ifdef USER_PROGRAM
         if (!strcmp(*argv, "-x")) {        	// run a user program
 	    ASSERT(argc > 1);
@@ -130,6 +133,7 @@ main(int argc, char **argv)
 	} else if (!strcmp(*argv, "-t")) {	// performance test
             PerformanceTest();
 	}
+	
 #endif // FILESYS
 #ifdef NETWORK
         if (!strcmp(*argv, "-o")) {
