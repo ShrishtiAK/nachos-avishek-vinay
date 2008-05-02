@@ -52,7 +52,7 @@
 
 #include "utility.h"
 #include "system.h"
-#include "synch.h"
+#include "producerConsumer.h"
 
 // External functions used by this file
 
@@ -61,6 +61,8 @@ extern void Print(char *file), PerformanceTest(void);
 extern void StartProcess(char *file), ConsoleTest(char *in, char *out);
 extern void MailTest(int networkID);
 extern void SynchTest();
+
+
 //----------------------------------------------------------------------
 // main
 // 	Bootstrap the operating system kernel.  
@@ -88,6 +90,17 @@ main(int argc, char **argv)
     ThreadTest();
 #endif
 
+	if (argc == 4 && !strcmp(argv[1], "-bb")) {	// Producer consumer problem
+            SynchTest();
+			CProducerConsumer c;
+			int n1, n2;
+			n1 = atoi(argv[2]);
+			n2 = atoi(argv[3]);
+			printf("%d, %d\n", n1, n2);
+			c.StartThreads(n1, n2);
+			return 0;
+		}
+		
     for (argc--, argv++; argc > 0; argc -= argCount, argv += argCount) {
 	argCount = 1;
         if (!strcmp(*argv, "-z"))               // print copyright
@@ -95,6 +108,7 @@ main(int argc, char **argv)
 		else if (!strcmp(*argv, "-synctest")) {	// Lock test
             SynchTest();
 		}
+
 #ifdef USER_PROGRAM
         if (!strcmp(*argv, "-x")) {        	// run a user program
 	    ASSERT(argc > 1);

@@ -55,7 +55,12 @@ void LockUnlock(const int i)
 {
 	SemaphoreLock.Acquire();
 	x++;
-	printf("value of x = %d", x);
+	printf("value of x = %d\n", x);
+	if(SemaphoreLock.isHeldByCurrentThread())
+	{
+		printf("Lock is held by current thread - Thread %d\n", i);
+		for(int j = 0; j < 65535 ; ++j){}
+	}
 	SemaphoreLock.Release();
 }
 void SynchTest()
