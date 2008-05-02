@@ -39,6 +39,7 @@
 class Semaphore {
   public:
     Semaphore(char* debugName, int initialValue);	// set initial value
+  	Semaphore(){}; //Default constructor
     ~Semaphore();   					// de-allocate semaphore
     char* getName() { return name;}			// debugging assist
 	int GetValue(){return value;}
@@ -135,6 +136,7 @@ class Condition {
 
   private:
     char* name;
+  	List *queue;       // threads waiting in P() for the value to be > 0
     // plus some other stuff you'll need to define
 };
 #endif // SYNCH_H
