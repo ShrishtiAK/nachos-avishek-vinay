@@ -48,7 +48,7 @@ main.o: ../threads/main.cc ../threads/copyright.h ../threads/utility.h \
   ../filesys/openfile.h ../threads/utility.h ../threads/scheduler.h \
   ../threads/list.h ../machine/interrupt.h ../threads/list.h \
   ../machine/stats.h ../machine/timer.h ../filesys/filesys.h \
-  ../threads/synch.h
+  ../threads/producerconsumer.h ../threads/synch.h
 list.o: ../threads/list.cc ../threads/copyright.h ../threads/list.h \
   ../threads/utility.h ../machine/sysdep.h ../threads/copyright.h \
   /usr/include/stdio.h /usr/local/include/features.h \
@@ -184,13 +184,32 @@ threadtest.o: ../threads/threadtest.cc ../threads/copyright.h \
   ../threads/utility.h ../threads/scheduler.h ../threads/list.h \
   ../machine/interrupt.h ../threads/list.h ../machine/stats.h \
   ../machine/timer.h ../filesys/filesys.h ../threads/synch.h
-producerConsumer.o: ../threads/producerConsumer.cc \
-  ../threads/producerConsumer.h ../threads/synch.h ../threads/copyright.h \
+producerconsumer.o: ../threads/producerconsumer.cc \
+  ../threads/producerconsumer.h ../threads/synch.h ../threads/copyright.h \
   ../threads/thread.h ../threads/utility.h ../machine/sysdep.h \
   ../threads/copyright.h /usr/include/stdio.h \
   /usr/local/include/features.h /usr/include/sys/cdefs.h \
   /usr/local/include/gnu/stubs.h /usr/include/bits/wordsize.h \
   /usr/include/gnu/stubs-32.h \
+  /usr/lib/gcc/i486-linux-gnu/4.1.2/include/stddef.h \
+  /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+  /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h \
+  /usr/include/bits/wchar.h /usr/include/gconv.h \
+  /usr/lib/gcc/i486-linux-gnu/4.1.2/include/stdarg.h \
+  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
+  /usr/include/string.h /usr/include/xlocale.h ../machine/machine.h \
+  ../threads/utility.h ../machine/translate.h ../machine/disk.h \
+  ../userprog/addrspace.h ../threads/copyright.h ../filesys/filesys.h \
+  ../threads/copyright.h ../filesys/openfile.h ../threads/utility.h \
+  ../threads/list.h ../threads/system.h ../threads/scheduler.h \
+  ../machine/interrupt.h ../threads/list.h ../machine/stats.h \
+  ../machine/timer.h ../filesys/filesys.h
+whaleproblem.o: ../threads/whaleproblem.cc ../threads/whaleproblem.h \
+  ../threads/synch.h ../threads/copyright.h ../threads/thread.h \
+  ../threads/utility.h ../machine/sysdep.h ../threads/copyright.h \
+  /usr/include/stdio.h /usr/local/include/features.h \
+  /usr/include/sys/cdefs.h /usr/local/include/gnu/stubs.h \
+  /usr/include/bits/wordsize.h /usr/include/gnu/stubs-32.h \
   /usr/lib/gcc/i486-linux-gnu/4.1.2/include/stddef.h \
   /usr/include/bits/types.h /usr/include/bits/typesizes.h \
   /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h \
