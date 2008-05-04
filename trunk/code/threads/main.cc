@@ -52,7 +52,8 @@
 
 #include "utility.h"
 #include "system.h"
-#include "producerConsumer.h"
+#include "producerconsumer.h"
+#include "whaleproblem.h"
 
 // External functions used by this file
 
@@ -90,7 +91,9 @@ main(int argc, char **argv)
     ThreadTest();
 #endif
 
-	if (argc == 4 && !strcmp(argv[1], "-bb")) {	// Producer consumer problem
+	if (argc == 4)
+	{
+		if(!strcmp(argv[1], "-bb")) {	// Producer consumer problem
             SynchTest();
 			CProducerConsumer c;
 			int n1, n2;
@@ -98,15 +101,31 @@ main(int argc, char **argv)
 			n2 = atoi(argv[3]);
 			printf("%d, %d\n", n1, n2);
 			c.StartThreads(n1, n2);
-			return 0;
+			//interrupt->Halt();	
+			//return 0;
 		}
-		
+		if (!strcmp(argv[1], "-whale"))
+		{
+			int n1, n2;
+			n1 = atoi(argv[2]);
+			n2 = atoi(argv[3]);
+			WhaleMatchMaker(n1, n2);
+		}
+	}
+		else{
     for (argc--, argv++; argc > 0; argc -= argCount, argv += argCount) {
 	argCount = 1;
         if (!strcmp(*argv, "-z"))               // print copyright
             printf (copyright);
 		else if (!strcmp(*argv, "-synctest")) {	// Lock test
             SynchTest();
+			//CProducerConsumer c;
+			//c.StartThreads(3, 3);
+				int n1 = 20;
+				int n2 = 20;
+			//n1 = atoi(argv[2]);
+			//n2 = atoi(argv[3]);
+			WhaleMatchMaker(n1, n2);
 		}
 
 #ifdef USER_PROGRAM
@@ -161,7 +180,8 @@ main(int argc, char **argv)
 #endif // NETWORK
     }
 
-    currentThread->Finish();	// NOTE: if the procedure "main" 
+	}
+	currentThread->Finish();	// NOTE: if the procedure "main" 
 				// returns, then the program "nachos"
 				// will exit (as any other normal program
 				// would).  But there may be other
