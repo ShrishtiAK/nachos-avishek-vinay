@@ -74,20 +74,22 @@ void CProducerConsumer::Consume(char c)
 
 void CProducerConsumer::StartThreads(int nProduces, int nConsumers)
 {
+	m_pConsumerThreads = NULL;
+	m_pProducerThreads = NULL;
 	for(int i = 0 ; i < nProduces ;++i)
 	{
 		printf("starting producer threads %d\n", i);
 		//Consumer();
 		//Producer();
-    	Thread *t1 = new Thread("forked producer thread");
-		t1->Fork(ProducerWrapper, i);
+    	m_pProducerThreads[i] = new Thread("forked producer thread");
+		m_pProducerThreads[i]->Fork(ProducerWrapper, i);
 		//delete t;
 	}
 	for(int i = 0 ; i < nConsumers ;++i)
 	{
 		printf("starting consumer threads %d\n", i);
-		Thread *t1 = new Thread("forked consumer thread");
-		t1->Fork(ConsumerWrapper, i);
+		m_pConsumerThreads[i] = new Thread("forked consumer thread");
+		m_pConsumerThreads[i]->Fork(ConsumerWrapper, i);
 		//delete t;
 	}
 	printf("started all the threads");
