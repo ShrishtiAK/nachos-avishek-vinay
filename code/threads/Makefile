@@ -33,7 +33,7 @@ main.o: ../threads/main.cc ../threads/copyright.h ../threads/utility.h \
   ../threads/thread.h ../threads/scheduler.h ../threads/list.h \
   ../machine/interrupt.h ../threads/list.h ../machine/stats.h \
   ../machine/timer.h ../threads/utility.h ../threads/producerconsumer.h \
-  ../threads/synch.h
+  ../threads/synch.h ../threads/whaleproblem.h
 list.o: ../threads/list.cc ../threads/copyright.h ../threads/list.h \
   ../threads/utility.h ../machine/sysdep.h ../threads/copyright.h \
   /usr/include/stdio.h /usr/local/include/features.h \
@@ -178,7 +178,10 @@ whaleproblem.o: ../threads/whaleproblem.cc ../threads/whaleproblem.h \
   /usr/include/bits/wchar.h /usr/include/gconv.h \
   /usr/lib/gcc/i486-linux-gnu/4.1.2/include/stdarg.h \
   /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
-  /usr/include/string.h /usr/include/xlocale.h ../threads/list.h
+  /usr/include/string.h /usr/include/xlocale.h ../threads/list.h \
+  ../threads/system.h ../threads/scheduler.h ../machine/interrupt.h \
+  ../threads/list.h ../machine/stats.h ../machine/timer.h \
+  ../threads/utility.h
 interrupt.o: ../machine/interrupt.cc ../threads/copyright.h \
   ../machine/interrupt.h ../threads/list.h ../threads/copyright.h \
   ../threads/utility.h ../machine/sysdep.h /usr/include/stdio.h \

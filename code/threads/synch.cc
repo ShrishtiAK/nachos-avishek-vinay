@@ -201,8 +201,8 @@ void Condition::Broadcast(Lock* pConditionLock)
 	Thread *thread = (Thread *)queue->Remove();
 	while(thread != NULL)
 	{
-		thread = (Thread *)queue->Remove();
 		scheduler->ReadyToRun(thread);
+		thread = (Thread *)queue->Remove();
 	}
 	(void) interrupt->SetLevel(oldLevel);
 }
