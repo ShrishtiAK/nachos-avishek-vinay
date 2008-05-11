@@ -54,6 +54,7 @@
 #include "system.h"
 #include "producerconsumer.h"
 #include "whaleproblem.h"
+//#include "boatproblem.h"
 
 // External functions used by this file
 
@@ -62,7 +63,7 @@ extern void Print(char *file), PerformanceTest(void);
 extern void StartProcess(char *file), ConsoleTest(char *in, char *out);
 extern void MailTest(int networkID);
 extern void SynchTest();
-
+extern void CannibalMissionaryCreator(int Cannbals, int Missionaries);
 
 //----------------------------------------------------------------------
 // main
@@ -104,12 +105,19 @@ main(int argc, char **argv)
 			//interrupt->Halt();	
 			//return 0;
 		}
-		if (!strcmp(argv[1], "-whale"))
+		else if (!strcmp(argv[1], "-whale"))
 		{
 			int n1, n2;
 			n1 = atoi(argv[2]);
 			n2 = atoi(argv[3]);
 			WhaleMatchMaker(n1, n2);
+		}
+		else if (!strcmp(argv[1], "-boats"))
+		{
+			int n1, n2;
+			n1 = atoi(argv[2]);
+			n2 = atoi(argv[3]);
+			CannibalMissionaryCreator(n1, n2);
 		}
 	}
 		else{
