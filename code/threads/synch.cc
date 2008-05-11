@@ -166,8 +166,8 @@ void Condition::Wait(Lock* pConditionLock)
 	pConditionLock->Release();
 	queue->Append((void *)currentThread);	
 	currentThread->Sleep();
-	(void) interrupt->SetLevel(oldLevel);
 	pConditionLock->Acquire();
+	(void) interrupt->SetLevel(oldLevel);
 	
 }
 void Condition::Signal(Lock* pConditionLock) 

@@ -47,6 +47,8 @@ THREAD_H =../threads/copyright.h\
 	../threads/utility.h\
 	../threads/producerconsumer.h\
 	../threads/whaleproblem.h\
+	../threads/boatproblem.h\
+	../threads/profstudentproblem.h\
 	../machine/interrupt.h\
 	../machine/sysdep.h\
 	../machine/stats.h\
@@ -62,7 +64,9 @@ THREAD_C =../threads/main.cc\
 	../threads/utility.cc\
 	../threads/threadtest.cc\
 	../threads/producerconsumer.cc\
+	../threads/profstudentproblem.cc\
 	../threads/whaleproblem.cc\
+	../threads/boatproblem.cc\
 	../machine/interrupt.cc\
 	../machine/sysdep.cc\
 	../machine/stats.cc\
@@ -72,7 +76,7 @@ THREAD_S = ../threads/switch.s
 
 THREAD_O =main.o list.o scheduler.o synch.o synchlist.o system.o thread.o \
 	utility.o threadtest.o interrupt.o stats.o sysdep.o timer.o \
-	producerconsumer.o whaleproblem.o
+	producerconsumer.o whaleproblem.o boatproblem.o profstudentproblem.o
 
 USERPROG_H = ../userprog/addrspace.h\
 	../userprog/bitmap.h\
