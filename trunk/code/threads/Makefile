@@ -166,6 +166,23 @@ producerconsumer.o: ../threads/producerconsumer.cc \
   ../threads/system.h ../threads/scheduler.h ../machine/interrupt.h \
   ../threads/list.h ../machine/stats.h ../machine/timer.h \
   ../threads/utility.h
+profstudentproblem.o: ../threads/profstudentproblem.cc \
+  ../threads/profstudentproblem.h ../threads/synch.h \
+  ../threads/copyright.h ../threads/thread.h ../threads/utility.h \
+  ../machine/sysdep.h ../threads/copyright.h /usr/include/stdio.h \
+  /usr/local/include/features.h /usr/include/sys/cdefs.h \
+  /usr/local/include/gnu/stubs.h /usr/include/bits/wordsize.h \
+  /usr/include/gnu/stubs-32.h \
+  /usr/lib/gcc/i486-linux-gnu/4.1.2/include/stddef.h \
+  /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+  /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h \
+  /usr/include/bits/wchar.h /usr/include/gconv.h \
+  /usr/lib/gcc/i486-linux-gnu/4.1.2/include/stdarg.h \
+  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
+  /usr/include/string.h /usr/include/xlocale.h ../threads/list.h \
+  ../threads/system.h ../threads/scheduler.h ../machine/interrupt.h \
+  ../threads/list.h ../machine/stats.h ../machine/timer.h \
+  ../threads/utility.h
 whaleproblem.o: ../threads/whaleproblem.cc ../threads/whaleproblem.h \
   ../threads/synch.h ../threads/copyright.h ../threads/thread.h \
   ../threads/utility.h ../machine/sysdep.h ../threads/copyright.h \
@@ -194,7 +211,10 @@ boatproblem.o: ../threads/boatproblem.cc ../threads/boatproblem.h \
   /usr/include/bits/wchar.h /usr/include/gconv.h \
   /usr/lib/gcc/i486-linux-gnu/4.1.2/include/stdarg.h \
   /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
-  /usr/include/string.h /usr/include/xlocale.h ../threads/list.h
+  /usr/include/string.h /usr/include/xlocale.h ../threads/list.h \
+  ../threads/system.h ../threads/scheduler.h ../machine/interrupt.h \
+  ../threads/list.h ../machine/stats.h ../machine/timer.h \
+  ../threads/utility.h
 interrupt.o: ../machine/interrupt.cc ../threads/copyright.h \
   ../machine/interrupt.h ../threads/list.h ../threads/copyright.h \
   ../threads/utility.h ../machine/sysdep.h /usr/include/stdio.h \

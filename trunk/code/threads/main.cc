@@ -64,7 +64,7 @@ extern void StartProcess(char *file), ConsoleTest(char *in, char *out);
 extern void MailTest(int networkID);
 extern void SynchTest();
 extern void CannibalMissionaryCreator(int Cannbals, int Missionaries);
-
+extern void ProfessorStudentCreate(int nStudents);
 //----------------------------------------------------------------------
 // main
 // 	Bootstrap the operating system kernel.  
@@ -118,6 +118,16 @@ main(int argc, char **argv)
 			n1 = atoi(argv[2]);
 			n2 = atoi(argv[3]);
 			CannibalMissionaryCreator(n1, n2);
+		}
+	}
+	else if(argc == 3)
+	{
+		if (!strcmp(argv[1], "-prof"))
+		{
+			int n1 = 0;
+			n1 = atoi(argv[2]);
+			printf("got the arg2 %d\n", n1);
+			ProfessorStudentCreate(n1);
 		}
 	}
 		else{

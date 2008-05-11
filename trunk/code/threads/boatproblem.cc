@@ -1,7 +1,17 @@
+/*Implementation of the problem 13 of the assignment #1*/
+
+
 #include "boatproblem.h"
 #include "thread.h"
 #include "system.h"
 
+
+/*SelectBoatSeat
+ * Description: Function to select a seat in the boat
+ * @param nNumber int identifier for the thread.
+ * @param Ctype char character which tells the type of thread
+ * @return void
+ */
 
 void SelectBoatSeat(int nNumber, char cType)
 {
@@ -11,6 +21,10 @@ void SelectBoatSeat(int nNumber, char cType)
 	cArrayType[nIndex] = cType;
 }
 
+/*ResetValues
+ *Description: resets all the data values used
+ *@return void 
+ */
 void ResetValues()
 {
 	bWaitForMissionaryChance = bWaitForCannibalChance= false;	
@@ -18,9 +32,15 @@ void ResetValues()
 	nCannibalCount = nMissionaryCount = 0;
 }
 
+/* RowBoat
+ * Description: Function to row a boat, called by one of the missionary or 
+ * cannibal thread when the boat can safely row
+ * @return void
+ */
 void RowBoat()
 {
-	printf("Row number: %d Rowing Boat with %c%d + %c%d + %c%d \n", ++NumberOfRows, cArrayType[0],  nArrayBoat[0],cArrayType[1],
+	printf("Row number: %d Rowing Boat with %c%d + %c%d + %c%d \n",
+	++NumberOfRows, cArrayType[0],  nArrayBoat[0],cArrayType[1],
 	nArrayBoat[1],cArrayType[2],  nArrayBoat[2]);
 	ResetValues();
 	currentThread->Yield();
@@ -30,17 +50,27 @@ void RowBoat()
 	currentThread->Yield();
 }
 
+
+/*MissionaryArrives
+ * Description: Function for all the missionary threads, it controls the 
+ * way missionaries can get into boat
+ * @param id integer value to identify the thread
+ * @return void
+ */
 void MissionaryArrives(int id)
 {
 	while(1)
 	{
+		//Wait till the boat is free for a missionay to enter
 		while(bWaitForMissionaryChance)
 		{
-			CondNextChance.Wait(&NextChance);
+			CondNextChance.Wait(&NextChance); //if boat is not free for now, wait till it is free
 			currentThread->Yield();
 		}
+		//Boat seems to be available lets try and check if it can be taken
 		BoatMutex.Acquire();
 		currentThread->Yield();
+		//If the entering of the current missionary satisfies the boat's capacity safely then just row the boat
 		if(nMissionaryCount && nCannibalCount ||
 			nMissionaryCount == 2)
 		{
@@ -190,6 +220,4 @@ void CannibalMissionaryCreator(int nCannibals, int nMissionaries)
 	
 	
 	
-	
-	
-}
+	}
