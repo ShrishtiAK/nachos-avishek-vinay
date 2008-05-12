@@ -194,7 +194,6 @@ void Condition::Broadcast(Lock* pConditionLock)
 	ASSERT(pConditionLock);
 	if(pConditionLock->isHeldByCurrentThread())
 	{
-		ASSERT(FALSE);
 		(void) interrupt->SetLevel(oldLevel);
 		return;
 	}

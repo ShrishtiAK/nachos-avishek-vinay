@@ -1,0 +1,361 @@
+This readme file describes the basic usage, and assumptions made in the solutions to the problems of assignment
+
+to build
+
+1) untar the package using tar -xvf setty-anand.tar command
+2) cd code
+3) run make all
+4) cd threads
+5) run nachos with specific options for each problem
+
+General Notes: 
+1. solutions to all problems are present in Threads directory
+2. and Threads/main.cc is changed to take the command line arguments for each problem
+3. the executable nachos is linked with all the solutions
+
+---------------------------------------------------------
+prob-1) Implementation of locks and conditional variables
+-----------------------------------------------------------
+
+The implementation as desired is in synch.cc
+
+--------------------------------------------------
+prob-2) Producer consumer problem
+--------------------------------------------------
+Usage: nachos -bb <numproducers> <numconsumers>
+
+Files: producerconsumer.cc and producerconsumer.h
+
+Note: Producers produce 1 character at a time from the string Hello World infinitely
+so if you want to stop the program then do the ctrl+c
+
+sample Input/output
+nachos -bb 10 10
+*** thread 0 looped 0 times
+*** thread 1 looped 0 times
+*** thread 0 looped 1 times
+*** thread 1 looped 1 times
+*** thread 0 looped 2 times
+*** thread 1 looped 2 times
+*** thread 0 looped 3 times
+*** thread 1 looped 3 times
+*** thread 0 looped 4 times
+*** thread 1 looped 4 times
+10, 10
+starting producer threads 0
+starting producer threads 1
+starting producer threads 2
+starting producer threads 3
+starting producer threads 4
+starting producer threads 5
+starting producer threads 6
+starting producer threads 7
+starting producer threads 8
+starting producer threads 9
+starting consumer threads 0
+starting consumer threads 1
+starting consumer threads 2
+starting consumer threads 3
+starting consumer threads 4
+starting consumer threads 5
+starting consumer threads 6
+starting consumer threads 7
+starting consumer threads 8
+starting consumer threads 9
+started all the threadsvalue of x = 1
+Lock is held by current thread - Thread 0
+value of x = 2
+Lock is held by current thread - Thread 1
+value of x = 3
+Lock is held by current thread - Thread 2
+value of x = 4
+Lock is held by current thread - Thread 3
+value of x = 5
+Lock is held by current thread - Thread 4
+value of x = 6
+Lock is held by current thread - Thread 5
+value of x = 7
+Lock is held by current thread - Thread 6
+value of x = 8
+Lock is held by current thread - Thread 7
+value of x = 9
+Lock is held by current thread - Thread 8
+value of x = 10
+Lock is held by current thread - Thread 9
+value of x = 11
+Lock is held by current thread - Thread 10
+value of x = 12
+Lock is held by current thread - Thread 11
+value of x = 13
+Lock is held by current thread - Thread 12
+value of x = 14
+Lock is held by current thread - Thread 13
+value of x = 15
+Lock is held by current thread - Thread 14
+value of x = 16
+Lock is held by current thread - Thread 15
+value of x = 17
+Lock is held by current thread - Thread 16
+value of x = 18
+Lock is held by current thread - Thread 17
+value of x = 19
+Lock is held by current thread - Thread 18
+value of x = 20
+Lock is held by current thread - Thread 19
+Producer starting
+Producer starting
+Producer starting
+Producer starting
+Producer starting
+Producer starting
+Producer starting
+Producer starting
+Producer starting
+Producer starting
+consumer starting
+Hello WorldHello Worconsumer starting
+consumer starting
+consumer starting
+consumer starting
+consumer starting
+consumer starting
+consumer starting
+consumer starting
+consumer starting
+ldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello World
+
+--------------------------------------------------
+prob-11) Professor student problem
+--------------------------------------------------
+Usage: nachos -prof <numstudents>
+
+Files: profstudentproblem.cc and profstudentproblem.h
+
+Note: each student asks a question and gets the answer and goes back to ask another 
+qeustion infinitely, so again to stop the program do the ctrl+c
+
+sample Input/output:
+nachos -prof 10
+*** thread 0 looped 0 times
+*** thread 1 looped 0 times
+*** thread 0 looped 1 times
+*** thread 1 looped 1 times
+*** thread 0 looped 2 times
+*** thread 1 looped 2 times
+*** thread 0 looped 3 times
+*** thread 1 looped 3 times
+*** thread 0 looped 4 times
+*** thread 1 looped 4 times
+got the arg2 10
+starting student threads 1
+starting student threads 2
+starting student threads 3
+starting student threads 4
+starting student threads 5
+starting student threads 6
+starting student threads 7
+starting student threads 8
+starting student threads 9
+starting student threads 10
+Student: Question Start of 1 
+Student: Asking question 1
+Professor: Got a question 1 
+Professor: Answering the question 1 
+Professor: Answer 1 done
+Student: Question done, I got the answer for question 1
+Student: Question Start of 2 
+Student: Asking question 2
+Professor: Got a question 2 
+Professor: Answering the question 2 
+Professor: Answer 2 done
+Student: Question done, I got the answer for question 2
+Student: Question Start of 3 
+Student: Asking question 3
+Professor: Got a question 3 
+Professor: Answering the question 3 
+Professor: Answer 3 done
+Student: Question done, I got the answer for question 3
+Student: Question Start of 4 
+Student: Asking question 4
+Professor: Got a question 4 
+Professor: Answering the question 4 
+Professor: Answer 4 done
+Student: Question done, I got the answer for question 4
+Student: Question Start of 5 
+Student: Asking question 5
+Professor: Got a question 5 
+Professor: Answering the question 5 
+Professor: Answer 5 done
+Student: Question done, I got the answer for question 5
+Student: Question Start of 6 
+Student: Asking question 6
+Professor: Got a question 6 
+Professor: Answering the question 6 
+Professor: Answer 6 done
+Student: Question done, I got the answer for question 6
+Student: Question Start of 7 
+Student: Asking question 7
+Professor: Got a question 7 
+Professor: Answering the question 7 
+Professor: Answer 7 done
+Student: Question done, I got the answer for question 7
+Student: Question Start of 8 
+Student: Asking question 8
+Professor: Got a question 8 
+Professor: Answering the question 8 
+Professor: Answer 8 done
+Student: Question done, I got the answer for question 8
+Student: Question Start of 9 
+Student: Asking question 9
+Professor: Got a question 9 
+Professor: Answering the question 9 
+Professor: Answer 9 done
+Student: Question done, I got the answer for question 9
+Student: Question Start of 10 
+Student: Asking question 10
+Professor: Got a question 10 
+Professor: Answering the question 10 
+Professor: Answer 10 done
+Student: Question done, I got the answer for question 10
+Student: Question Start of 1 
+Student: Asking question 1
+Professor: Got a question 1 
+Professor: Answering the question 1 
+Professor: Answer 1 done
+Student: Question done, I got the answer for question 1
+Student: Question Start of 2 
+Student: Asking question 2
+Professor: Got a question 2 
+Professor: Answering the question 2 
+Professor: Answer 2 done
+Student: Question done, I got the answer for question 2
+Student: Question Start of 3 
+Student: Asking question 3
+Professor: Got a question 3 
+Professor: Answering the question 3 
+Professor: Answer 3 done
+Student: Question done, I got the answer for question 3
+Student: Question Start of 4 
+Student: Asking question 4
+Professor: Got a question 4 
+Professor: Answering the question 4 
+Professor: Answer 4 done
+Student: Question done, I got the answer for question 4
+Student: Question Start of 5 
+Student: Asking question 5
+Professor: Got a question 5 
+Professor: Answering the question 5 
+Professor: Answer 5 done
+Student: Question done, I got the answer for question 5
+
+
+--------------------------------------------------
+prob-12) Whale problem
+--------------------------------------------------
+
+Usage: nachos -whales <nummalewhales> <numfemalewhales>
+
+Files: whaleproblem.cc and whaleproblem.h
+
+Notes: 
+1. Each whale tries to become bride or groom first if it fails to get a chance
+	then it attempts to become match maker
+2. It is assumed that the match maker is one of the males and females and once
+it finishes matching it goes back and contests for mating or match making again
+3. So one whale can be match maker multiple times in its life time
+4. Not every whale gets to mate. So in the end when there is no male female and match maker pair the progam exits
+
+sample Input/output:
+nachos -whales 3 4
+*** thread 0 looped 0 times
+*** thread 1 looped 0 times
+*** thread 0 looped 1 times
+*** thread 1 looped 1 times
+*** thread 0 looped 2 times
+*** thread 1 looped 2 times
+*** thread 0 looped 3 times
+*** thread 1 looped 3 times
+*** thread 0 looped 4 times
+*** thread 1 looped 4 times
+starting male threads 1
+starting male threads 2
+starting male threads 3
+starting female 1
+starting female 2
+starting female 3
+starting female 4
+Mating Counter:1 -Mating is taking place between the male whale 1       and female whale 1 and the match maker is: Male whale 2
+Mating Counter:2 -Mating is taking place between the male whale 2       and female whale 2 and the match maker is: Male whale 3
+Mating Counter:3 -Mating is taking place between the male whale 3       and female whale 3 and the match maker is: Female whale 4
+No threads ready or runnable, and no pending interrupts.
+Assuming the program completed.
+Machine halting!
+
+Ticks: total 900, idle 0, system 900, user 0
+Disk I/O: reads 0, writes 0
+Console I/O: reads 0, writes 0
+Paging: faults 0
+Network I/O: packets received 0, sent 0
+
+Cleaning up...
+--------------------------------------------------
+prob-13) Professor student problem
+--------------------------------------------------
+Usage: nachos -boats <numcannibals> <nummissionaries>
+
+Files: boatproblem.cc and boatproblem.h
+
+Notes: 
+1. The solution does not solve classical cannibal missionary problems, it only 
+formulates the safe rowing in a greedy way
+2. when there are not enough resources to row a boat, the nachos stops itself
+
+sample Input/output:
+
+nachos -boats 5 7
+*** thread 0 looped 0 times
+*** thread 1 looped 0 times
+*** thread 0 looped 1 times
+*** thread 1 looped 1 times
+*** thread 0 looped 2 times
+*** thread 1 looped 2 times
+*** thread 0 looped 3 times
+*** thread 1 looped 3 times
+*** thread 0 looped 4 times
+*** thread 1 looped 4 times
+starting missionary 1
+starting missionary 2
+starting missionary 3
+starting missionary 4
+starting missionary 5
+starting missionary 6
+starting missionary 7
+starting cannibal threads 1
+starting cannibal threads 2
+starting cannibal threads 3
+starting cannibal threads 4
+starting cannibal threads 5
+M 1 selecting seat 0
+M 2 selecting seat 1
+M 3 selecting seat 2
+Row number: 1 Rowing Boat with M1 + M2 + M3
+M 4 selecting seat 0
+M 5 selecting seat 1
+M 6 selecting seat 2
+Row number: 2 Rowing Boat with M4 + M5 + M6
+C 1 selecting seat 0
+C 2 selecting seat 1
+C 3 selecting seat 2
+Row number: 3 Rowing Boat with C1 + C2 + C3
+C 4 selecting seat 0
+No threads ready or runnable, and no pending interrupts.
+Assuming the program completed.
+Machine halting!
+
+Ticks: total 730, idle 0, system 730, user 0
+Disk I/O: reads 0, writes 0
+Console I/O: reads 0, writes 0
+Paging: faults 0
+Network I/O: packets received 0, sent 0
+
+Cleaning up...
