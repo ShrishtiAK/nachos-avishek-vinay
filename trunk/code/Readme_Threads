@@ -12,6 +12,9 @@ General Notes:
 1. solutions to all problems are present in Threads directory
 2. and Threads/main.cc is changed to take the command line arguments for each problem
 3. the executable nachos is linked with all the solutions
+4. If there are invalid input values (like number of entities are zero or negative values) then the program gracefully exits.
+5. We tested the individual cases with different interleavings using thread yields, so the presence of thread yields in code 
+   merely suggest test conditions for context switches and are harmless :-).
 
 ---------------------------------------------------------
 prob-1) Implementation of locks and conditional variables
