@@ -2,9 +2,9 @@
 #define PRODUCER_CONSUMER_H
 
 #include "synch.h"
-//class Semaphore;
 
-	
+
+
 class CProducerConsumer
 {
 	public:
@@ -26,7 +26,5 @@ class CProducerConsumer
 		static char m_Buffer[];
 		int m_ProducerIndex;
 		int m_ConsumerIndex;
-		Thread **m_pProducerThreads;
-		Thread **m_pConsumerThreads;
 };
 #endif //PRODUCER_CONSUMER_H
