@@ -77,21 +77,22 @@ void Profesor(int)
 	}
 }
 
-//Student 
+//Student function
 void Student(int n)
 {
 	while(1)
 	{
-		currentThread->Yield();
 		QuestionStart(n);
 	
 		printf("Student: Asking question %d\n", n);
 
 		QuestionDone(n);
+		currentThread->Yield();
 	}
 
 }
 
+//Professor and student threads are created in this function
 void ProfessorStudentCreate(int nSutdents)
 {
 	Thread *t1 = new Thread("forked male thread\n");

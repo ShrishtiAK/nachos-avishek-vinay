@@ -2,11 +2,11 @@
 #include "string.h"
 #include "system.h"
 
-const int CProducerConsumer::K_MAX_BUF_SIZE = 20;
-const char CProducerConsumer::InputString[12] = "Hello World";
-char CProducerConsumer::m_Buffer[K_MAX_BUF_SIZE] = "\0";
-CProducerConsumer t;
-CProducerConsumer::CProducerConsumer():
+const int CProducerConsumer::K_MAX_BUF_SIZE = 20; //Size of the buffer shared
+const char CProducerConsumer::InputString[12] = "Hello World"; 
+char CProducerConsumer::m_Buffer[K_MAX_BUF_SIZE] = "\0";   //Shared buffer among the producers and consumer
+CProducerConsumer ProducerConsumer;
+CProducerConsumer::CProducerConsumer(): 
 m_CanProduce("Can produce", K_MAX_BUF_SIZE),
 m_CanConsume("Can consume", 0),
 m_Producer_Mutex("producer mutex", 1),
@@ -17,14 +17,13 @@ static void ProducerWrapper(int n)
 {
 	printf("Producer starting\n");
 	printf("Producer starting\n");
-	t.Producer();
+	ProducerConsumer.Producer();
 }
 
 static void ConsumerWrapper(int n)
 {
-	//CProducerConsumer t;
 	printf("consumer starting\n");
-	t.Consumer();
+	ProducerConsumer.Consumer();
 }
 
 void CProducerConsumer::Producer()
@@ -32,17 +31,12 @@ void CProducerConsumer::Producer()
 	printf("Producer starting\n");
 	while(1)
 	{
-		for(unsigned int i = 0 ; i < strlen(InputString); ++i)
-		{
-			m_CanProduce.P();
-			m_Producer_Mutex.P();
-			char item = InputString[i];
-			m_Buffer[m_ProducerIndex] = item;		
-			m_ProducerIndex = (m_ProducerIndex + 1) % K_MAX_BUF_SIZE;
-			m_Producer_Mutex.V();
-			m_CanConsume.V();
-		}
-		
+		m_CanProduce.P();
+		m_Producer_Mutex.P();
+		m_Buffer[m_ProducerIndex] = Produce();		
+		m_ProducerIndex = (m_ProducerIndex + 1) % K_MAX_BUF_SIZE;
+		m_Producer_Mutex.V();
+		m_CanConsume.V();
 	}
 }
 
@@ -61,9 +55,13 @@ void CProducerConsumer::Consumer()
 	}
 }
 
+//returns 1 char at a time from the string "Hello World"
 char CProducerConsumer::Produce()
 {
-	return 'F';
+	static int i = 0;
+	char c = InputString[i];
+	i = (i + 1) % strlen(InputString);
+	return c;
 }
 
 void CProducerConsumer::Consume(char c)
@@ -71,24 +69,23 @@ void CProducerConsumer::Consume(char c)
 	printf("%c", c);
 }
 
+//Starts the producer and consumer threads
 void CProducerConsumer::StartThreads(int nProduces, int nConsumers)
 {
-	m_pConsumerThreads = NULL;
-	m_pProducerThreads = NULL;
 	for(int i = 0 ; i < nProduces ;++i)
 	{
 		printf("starting producer threads %d\n", i);
 		//Consumer();
-		//Producer();
-    	m_pProducerThreads[i] = new Thread("forked producer thread");
-		m_pProducerThreads[i]->Fork(ProducerWrapper, i);
+		//Producer()
+    	Thread* t1 = new Thread("forked producer thread");
+		t1->Fork(ProducerWrapper, i);
 		//delete t;
 	}
 	for(int i = 0 ; i < nConsumers ;++i)
 	{
 		printf("starting consumer threads %d\n", i);
-		m_pConsumerThreads[i] = new Thread("forked consumer thread");
-		m_pConsumerThreads[i]->Fork(ConsumerWrapper, i);
+		Thread* t2 = new Thread("forked consumer thread");
+		t2->Fork(ConsumerWrapper, i);
 		//delete t;
 	}
 	printf("started all the threads");

@@ -45,9 +45,9 @@ void RowBoat()
 	ResetValues();
 	currentThread->Yield();
 	CondNextChance.Broadcast(&NextChance);
-	currentThread->Yield();
+	
 	BoatMutex.Release();
-	currentThread->Yield();
+	
 }
 
 
@@ -65,11 +65,11 @@ void MissionaryArrives(int id)
 		while(bWaitForMissionaryChance)
 		{
 			CondNextChance.Wait(&NextChance); //if boat is not free for now, wait till it is free
-			currentThread->Yield();
+			
 		}
 		//Boat seems to be available lets try and check if it can be taken
 		BoatMutex.Acquire();
-		currentThread->Yield();
+		
 		//If the entering of the current missionary satisfies the boat's capacity safely then just row the boat
 		if(nMissionaryCount && nCannibalCount ||
 			nMissionaryCount == 2)
@@ -79,43 +79,40 @@ void MissionaryArrives(int id)
 			SelectBoatSeat(id, 'M');
 			RowBoat();
 			break;
-		}
+		}//The last missionary cannot enter if it is first one to enter
 		else if(nMissionariesLeft == 1 &&
 				nMissionaryCount == 0)
 		{
 			bWaitForMissionaryChance = true;
 			BoatMutex.Release();
-			//currentThread->Yield();
 			continue;
-		}
+		}//If there is a missionary already enter the boat
 		else if(nMissionaryCount)
 		{
 			++nMissionaryCount;
 			--nMissionariesLeft;
 			SelectBoatSeat(id, 'M');
 			BoatMutex.Release();
-			currentThread->Yield();
+			
 			CondBoatReady.Wait(&BoatReady);
 			break;
-		}
+		}//If there is a Cannibal already in the boat and it is still not full then also enter
 		else if(nCannibalCount)
 		{
 			++nMissionaryCount;
 			--nMissionariesLeft;
 			bWaitForCannibalChance = true;
 			SelectBoatSeat(id, 'M');
-			BoatMutex.Release();			
-			currentThread->Yield();
+			BoatMutex.Release();				
 			CondBoatReady.Wait(&BoatReady);
 			break;
 		}
-		else
+		else //When there is nobody in boat also enter the boat
 		{
 			++nMissionaryCount;
 			--nMissionariesLeft;
 			SelectBoatSeat(id, 'M');
-			BoatMutex.Release();
-			currentThread->Yield();
+			BoatMutex.Release();			
 			CondBoatReady.Wait(&BoatReady);
 			break;
 		}
@@ -123,17 +120,21 @@ void MissionaryArrives(int id)
 	}
 }
 
+//Cannibal function
 void CannibalArrives(int id)
 {
 	while(1)
 	{
+		//Wait till the boat is free for a missionay to enter
 		while(bWaitForCannibalChance)
 		{
-			CondNextChance.Wait(&NextChance);			
-			currentThread->Yield();
+			CondNextChance.Wait(&NextChance); //if boat is not free for now, wait till it is free
+			
 		}
+		//Boat seems to be available lets try and check if it can be taken
 		BoatMutex.Acquire();
-		currentThread->Yield();
+		
+		//If the entering of the current cannibal satisfies the boat's capacity safely then just row the boat
 		if(nCannibalCount == 2||
 		   nMissionaryCount == 2)
 		{
@@ -145,13 +146,14 @@ void CannibalArrives(int id)
 		}
 		else if(nCannibalCount == 1)
 		{
+			//The last missionary cannot enter if there is already a cannibal
+			//And if there is a missionary already then also it cannot enter
 			if(nCannibalsLeft == 1 || nMissionaryCount == 1)
 			{
 				bWaitForCannibalChance = true;
 				BoatMutex.Release();
-				//currentThread->Yield();
 				continue;
-			}
+			}//if it is 3rd cannibal also it can enter
 			else
 			{
 				++nCannibalCount;
@@ -159,29 +161,29 @@ void CannibalArrives(int id)
 				bWaitForMissionaryChance = true;
 				SelectBoatSeat(id, 'C');
 				BoatMutex.Release();
-				currentThread->Yield();
+				
 				CondBoatReady.Wait(&BoatReady);
 				break;
 			}
 		}
-		else if(nMissionaryCount)
+		else if(nMissionaryCount)//If there a missionary already then safely enter
 		{
 			++nMissionaryCount;
 			--nCannibalsLeft;
 			bWaitForCannibalChance = true;
 			SelectBoatSeat(id, 'C');
 			BoatMutex.Release();
-			currentThread->Yield();
+			
 			CondBoatReady.Wait(&BoatReady);
 			break;
 		}
-		else
+		else//if there no body also enter safely
 		{
 			++nCannibalCount;
 			--nCannibalsLeft;
 			SelectBoatSeat(id, 'C');
 			BoatMutex.Release();
-			currentThread->Yield();
+			
 			CondBoatReady.Wait(&BoatReady);
 			break;
 		}
@@ -189,30 +191,31 @@ void CannibalArrives(int id)
 	}
 }
 
+//Method to create the missionay and cannibal threads
 void CannibalMissionaryCreator(int nCannibals, int nMissionaries)
 {
 	nMissionariesLeft = nMissionaries;
 	nCannibalsLeft = nCannibals;
-	currentThread->Yield();
+	
 	for(int j = 1 ; j <= nMissionaries ;++j)
 	{
-		currentThread->Yield();
+		
 		printf("starting missionary %d\n", j);
-		currentThread->Yield();
+		
 		Thread *t2 = new Thread("forked missionary thread");
-		currentThread->Yield();
+		
 		t2->Fork(MissionaryArrives, j);
 		//delete t;
 	}
 
-	currentThread->Yield();
+	
 	for(int i = 1 ; i <= nCannibals ;++i)
 	{
-		currentThread->Yield();
+		
 		printf("starting cannibal threads %d\n", i);
-		currentThread->Yield();
+		
 		Thread *t2 = new Thread("forked cannibal thread");
-		currentThread->Yield();
+		
 		t2->Fork(CannibalArrives, i);
 		//delete t;
 	}
