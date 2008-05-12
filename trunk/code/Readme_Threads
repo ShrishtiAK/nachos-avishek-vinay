@@ -26,10 +26,11 @@ Usage: nachos -bb <numproducers> <numconsumers>
 
 Files: producerconsumer.cc and producerconsumer.h
 
-Note: Producers produce 1 character at a time from the string Hello World infinitely
+Note: Producers produce 1 character at a time from the string "Hello World" infinitely
 so if you want to stop the program then do the ctrl+c
 
-sample Input/output
+sample Input/output :
+=====================
 nachos -bb 10 10
 *** thread 0 looped 0 times
 *** thread 1 looped 0 times
@@ -132,7 +133,7 @@ Usage: nachos -prof <numstudents>
 Files: profstudentproblem.cc and profstudentproblem.h
 
 Note: each student asks a question and gets the answer and goes back to ask another 
-qeustion infinitely, so again to stop the program do the ctrl+c
+question infinitely, so again to stop the program do the ctrl+c
 
 sample Input/output:
 nachos -prof 10
@@ -258,12 +259,12 @@ Usage: nachos -whales <nummalewhales> <numfemalewhales>
 Files: whaleproblem.cc and whaleproblem.h
 
 Notes: 
-1. Each whale tries to become bride or groom first if it fails to get a chance
-	then it attempts to become match maker
+1. Each whale tries to become a bride or a groom first. If it fails to get a chance
+	then it attempts to become A match maker.
 2. It is assumed that the match maker is one of the males and females and once
-it finishes matching it goes back and contests for mating or match making again
-3. So one whale can be match maker multiple times in its life time
-4. Not every whale gets to mate. So in the end when there is no male female and match maker pair the progam exits
+it finishes matching it goes back and contests for mating or match making again.
+3. So one whale can be a match maker multiple times in its life time.
+4. every whale might not get to mate always. So in the end if there are no male, female and match maker pairs, the progam exits.
 
 sample Input/output:
 nachos -whales 3 4
@@ -307,8 +308,8 @@ Files: boatproblem.cc and boatproblem.h
 
 Notes: 
 1. The solution does not solve classical cannibal missionary problems, it only 
-formulates the safe rowing in a greedy way
-2. when there are not enough resources to row a boat, the nachos stops itself
+formulates the safe rowing of the voat in a greedy way.
+2. when there are not enough resources to row a boat, nachos stops itself
 
 sample Input/output:
 
