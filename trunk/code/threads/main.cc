@@ -105,7 +105,7 @@ main(int argc, char **argv)
 			//interrupt->Halt();	
 			//return 0;
 		}
-		else if (!strcmp(argv[1], "-whale"))
+		else if (!strcmp(argv[1], "-whales"))
 		{
 			int n1, n2;
 			n1 = atoi(argv[2]);

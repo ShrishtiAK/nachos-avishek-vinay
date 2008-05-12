@@ -16,7 +16,6 @@ m_ConsumerIndex(0){}
 static void ProducerWrapper(int n)
 {
 	printf("Producer starting\n");
-	printf("Producer starting\n");
 	ProducerConsumer.Producer();
 }
 
@@ -28,7 +27,6 @@ static void ConsumerWrapper(int n)
 
 void CProducerConsumer::Producer()
 {
-	printf("Producer starting\n");
 	while(1)
 	{
 		m_CanProduce.P();
@@ -42,7 +40,6 @@ void CProducerConsumer::Producer()
 
 void CProducerConsumer::Consumer()
 {
-	printf("condumer starting\n");
 	while(1)
 	{
 		m_CanConsume.P();
