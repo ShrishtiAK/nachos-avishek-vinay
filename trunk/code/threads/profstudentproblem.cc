@@ -19,13 +19,12 @@ void QuestionDone(int nMyNumber)
 {
 	//Signal the sleeping professor about question
 	Question.V();
-	ProfessorLock.Release();
 	//Wait till professor answers question
 	while(nMyNumber != nAnswerNumber)
 	{
 		Answer.P();
 	}
-	printf("Student: Question done, I got the answer for question %d\n", nMyNumber);
+	printf("Student: Question done, I got the answer for question %d\n\n", nMyNumber);
 	//Question was answered release the lock for other students
 	Speak.Release();
 }
@@ -40,7 +39,6 @@ void AnswerStart()
 		Question.P();
 		
 	}
-	ProfessorLock.Acquire();
 	printf("Professor: Got a question %d \n", nQuestionNumber);
 	
 }
