@@ -16,7 +16,6 @@ m_ConsumerIndex(0){}
 static void ProducerWrapper(int n)
 {
 	printf("Producer starting\n");
-	
 	printf("Producer starting\n");
 	t.Producer();
 }

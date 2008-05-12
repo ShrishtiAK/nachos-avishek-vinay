@@ -1,109 +1,112 @@
 #include "profstudentproblem.h"
 #include "system.h"
 
+//Function to start asking a question
 void QuestionStart(int nMyNumber)
 {
+	//Acquire the lock to ask the question
 	Speak.Acquire();
-	currentThread->Yield();
+	//Make sure that no other student asks question
+	//while the professor is answering this question
 	ProfessorLock.Acquire();
-	currentThread->Yield();
+	//Flag the professor the question number to professor
 	nQuestionNumber = nMyNumber;
-	printf("Question Start of %d \n", nMyNumber);
-	currentThread->Yield();
+	printf("Student: Question Start of %d \n", nMyNumber);
 }
 
+//Function to wait while professor answers the asked question
 void QuestionDone(int nMyNumber)
 {
-	currentThread->Yield();
+	//Signal the sleeping professor about question
 	Question.V();
-	//ProfessorLock.Release();
-	currentThread->Yield();
+	ProfessorLock.Release();
+	//Wait till professor answers question
 	while(nMyNumber != nAnswerNumber)
 	{
-		currentThread->Yield();
 		Answer.P();
-		currentThread->Yield();
 	}
-	currentThread->Yield();
-	printf("Question done, I got the answer for question %d\n", nMyNumber);
+	printf("Student: Question done, I got the answer for question %d\n", nMyNumber);
+	//Question was answered release the lock for other students
 	Speak.Release();
-	currentThread->Yield();
 }
 
+
+//Method to wait for any question
 void AnswerStart()
 {
-	nAnswerNumber = 0;
-	currentThread->Yield();
 	while(nQuestionNumber <= 0)
 	{
-		currentThread->Yield();
+		//wait while no questions are asked
 		Question.P();
-		currentThread->Yield();
+		
 	}
-	printf("Got a question %d \n", nQuestionNumber);
-	currentThread->Yield();
-	//ProfessorLock.Acquire();
-	currentThread->Yield();
+	ProfessorLock.Acquire();
+	printf("Professor: Got a question %d \n", nQuestionNumber);
+	
 }
 
+//Method to flag the student about answer being done
 void AnswerDone()
 {
-	currentThread->Yield();
+	
 	nAnswerNumber = nQuestionNumber;
-	currentThread->Yield();
+	
 	Answer.V();
-	printf("Answer %d done\n", nAnswerNumber);
-	currentThread->Yield();
+	printf("Professor: Answer %d done\n", nAnswerNumber);
+	
 	nQuestionNumber = 0;
-	currentThread->Yield();
+	
 	ProfessorLock.Release();
-	currentThread->Yield();
+	
 }
 
+//professor loops in this method
 void Profesor(int)
 {
 	while(1)
 	{
+		
 		currentThread->Yield();
 		AnswerStart();
-		currentThread->Yield();
-		printf("Answering the question %d \n", nQuestionNumber);
-		currentThread->Yield();
+		
+		printf("Professor: Answering the question %d \n", nQuestionNumber);
+		
 		AnswerDone();
 		currentThread->Yield();
+		
 	}
 }
 
+//Student 
 void Student(int n)
 {
-	//while(1)
-	//{
-	currentThread->Yield();
+	while(1)
+	{
+		currentThread->Yield();
 		QuestionStart(n);
-	currentThread->Yield();	
-		printf("Asking question %d\n", n);
-	currentThread->Yield();
+	
+		printf("Student: Asking question %d\n", n);
+
 		QuestionDone(n);
-	currentThread->Yield();
-	//}
+	}
+
 }
 
 void ProfessorStudentCreate(int nSutdents)
 {
 	Thread *t1 = new Thread("forked male thread\n");
-	currentThread->Yield();
+	
 	t1->Fork(Profesor, 1);
 	
 	
 	for(int i = 1 ; i <= nSutdents ;++i)
 	{
-		currentThread->Yield();
+		
 		printf("starting student threads %d\n", i);
-		currentThread->Yield();
+		
 		Thread *t2 = new Thread("forked male thread");
-		currentThread->Yield();
+		
 		t2->Fork(Student, i);
-		currentThread->Yield();
-		//delete t;
+		
 	}
 }
